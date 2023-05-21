@@ -2,6 +2,7 @@
 
 import os
 import discord
+import aiohttp
 from discord.ext import commands
 
 
@@ -21,6 +22,16 @@ async def ping(ctx):
 @bot.command()
 async def hello(ctx):
     await ctx.send("Choo choo! 🚅 Jesteś na warsztatach")
+    
+@bot.command()
+async def ai(ctx, *, text):
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post('https://hook.eu1.make.com/f49x72h9q3vjrdut5ve2e5ya2q3jzabr', data={'text': text}) as response:
+                result = await response.text()
+        await ctx.send(f"External IP response: {result}")
+    except Exception as e:
+        await ctx.send(f"An error occurred: {e}")
 
 
 bot.run(os.environ["DISCORD_TOKEN"])
