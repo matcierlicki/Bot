@@ -29,7 +29,7 @@ async def ai(ctx, *, text):
         async with aiohttp.ClientSession() as session:
             async with session.post('https://hook.eu1.make.com/nd6ca2eccitq3ibyfajlltgq6x2pv917', data={'text': text}) as response:
                 result = await response.text()
-        await ctx.send(f"{result}")
+        await ctx.send(result)
     except Exception as e:
         await ctx.send(f"An error occurred: {e}")
 
